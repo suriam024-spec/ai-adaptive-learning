@@ -1,0 +1,954 @@
+/* =========================================================
+   DASHBOARD
+   Scoped with dashboard-* to avoid affecting other pages
+   ========================================================= */
+
+.dashboard-page {
+  min-height: 100vh;
+  padding: 40px 20px 80px;
+
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(99, 102, 241, 0.08),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 0% 30%,
+      rgba(16, 185, 129, 0.05),
+      transparent 25%
+    ),
+    #f7f8fa;
+
+  color: #17191c;
+}
+
+.dashboard-container {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.dashboard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.dashboard-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #4f46e5;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.dashboard-title {
+  margin: 8px 0 4px;
+
+  color: #111827;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.dashboard-subtitle {
+  margin: 0;
+
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.dashboard-logout {
+  flex-shrink: 0;
+
+  min-height: 42px;
+  padding: 10px 17px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 11px;
+
+  background: #ffffff;
+  color: #374151;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.dashboard-logout:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 5px 14px rgba(0, 0, 0, 0.07);
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.dashboard-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+
+  margin-bottom: 24px;
+  padding: 16px 18px;
+
+  border: 1px solid #fecaca;
+  border-left: 4px solid #dc2626;
+  border-radius: 14px;
+
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.dashboard-error-icon {
+  display: grid;
+  place-items: center;
+
+  width: 26px;
+  height: 26px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #fee2e2;
+  color: #dc2626;
+
+  font-weight: 900;
+}
+
+.dashboard-error strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.dashboard-error p {
+  margin: 0;
+
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+/* =========================================================
+   AI RECOMMENDATION
+   ========================================================= */
+
+.dashboard-ai-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+
+  position: relative;
+  overflow: hidden;
+
+  margin-bottom: 42px;
+  padding: 32px;
+
+  border: 1px solid #312e81;
+  border-radius: 22px;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(129, 140, 248, 0.35),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #111827,
+      #1e1b4b
+    );
+
+  color: white;
+
+  box-shadow:
+    0 18px 45px rgba(17, 24, 39, 0.16);
+}
+
+.dashboard-ai-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.dashboard-ai-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #c7d2fe;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+.dashboard-ai-icon {
+  display: grid;
+  place-items: center;
+
+  width: 25px;
+  height: 25px;
+
+  border-radius: 8px;
+
+  background: rgba(99, 102, 241, 0.25);
+
+  color: #a5b4fc;
+  font-size: 15px;
+}
+
+.dashboard-ai-title {
+  margin: 12px 0 8px;
+
+  color: #ffffff;
+
+  font-size: clamp(23px, 3vw, 30px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-ai-meta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: #c7d2fe;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dashboard-dot {
+  color: #6366f1;
+}
+
+.dashboard-ai-reason {
+  max-width: 680px;
+
+  margin: 17px 0 0;
+
+  color: #d1d5db;
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.dashboard-primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  flex-shrink: 0;
+
+  min-height: 48px;
+  padding: 12px 20px;
+
+  border: 0;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #111827;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.16);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.dashboard-primary-button:hover {
+  background: #f9fafb;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.dashboard-primary-button span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* =========================================================
+   COMPLETED
+   ========================================================= */
+
+.dashboard-completed-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  margin-bottom: 42px;
+  padding: 24px;
+
+  border: 1px solid #a7f3d0;
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ecfdf5,
+      #f0fdf4
+    );
+
+  color: #064e3b;
+}
+
+.dashboard-completed-icon {
+  display: grid;
+  place-items: center;
+
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  border-radius: 14px;
+
+  background: #d1fae5;
+
+  color: #059669;
+
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.dashboard-completed-label {
+  color: #059669;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+}
+
+.dashboard-completed-card h2 {
+  margin: 5px 0 3px;
+
+  color: #064e3b;
+
+  font-size: 22px;
+}
+
+.dashboard-completed-card p {
+  margin: 0;
+
+  color: #047857;
+
+  font-size: 14px;
+}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.dashboard-section {
+  margin-top: 42px;
+}
+
+.dashboard-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+
+  margin-bottom: 17px;
+}
+
+.dashboard-section-heading h2 {
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-section-heading p {
+  margin: 5px 0 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+.dashboard-lesson-count {
+  padding: 7px 11px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+
+  background: #ffffff;
+
+  color: #6b7280;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   STAT CARDS
+   ========================================================= */
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.dashboard-stat-card {
+  min-height: 190px;
+
+  padding: 22px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.035);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.dashboard-stat-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.07);
+}
+
+.dashboard-stat-icon {
+  display: grid;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  margin-bottom: 18px;
+
+  border-radius: 12px;
+
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.dashboard-icon-blue {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.dashboard-icon-purple {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.dashboard-icon-green {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.dashboard-stat-label {
+  color: #6b7280;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.dashboard-stat-value {
+  margin-top: 5px;
+
+  color: #111827;
+
+  font-size: 32px;
+  font-weight: 850;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.dashboard-stat-value span {
+  color: #9ca3af;
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.dashboard-stat-description {
+  margin: 6px 0 0;
+
+  color: #9ca3af;
+
+  font-size: 12px;
+}
+
+.dashboard-progress {
+  width: 100%;
+  height: 8px;
+
+  margin-top: 18px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #f1f5f9;
+}
+
+.dashboard-progress-bar {
+  height: 100%;
+
+  border-radius: inherit;
+
+  transition: width 0.5s ease;
+}
+
+.dashboard-progress-purple {
+  background:
+    linear-gradient(
+      90deg,
+      #4f46e5,
+      #818cf8
+    );
+}
+
+.dashboard-progress-green {
+  background:
+    linear-gradient(
+      90deg,
+      #059669,
+      #34d399
+    );
+}
+
+/* =========================================================
+   LEARNING PATH
+   ========================================================= */
+
+.dashboard-learning-list {
+  display: grid;
+  gap: 12px;
+}
+
+.dashboard-lesson-card {
+  display: grid;
+
+  grid-template-columns:
+    48px
+    minmax(0, 1fr)
+    150px
+    24px;
+
+  align-items: center;
+  gap: 16px;
+
+  width: 100%;
+
+  padding: 17px 18px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  text-align: left;
+
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.025);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.dashboard-lesson-card:hover {
+  border-color: #c7d2fe;
+
+  background: #fcfcff;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 22px rgba(79, 70, 229, 0.08);
+}
+
+.dashboard-lesson-number {
+  display: grid;
+  place-items: center;
+
+  width: 46px;
+  height: 46px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+
+  background: #f9fafb;
+
+  color: #6b7280;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.dashboard-lesson-completed {
+  border-color: #a7f3d0;
+
+  background: #ecfdf5;
+
+  color: #059669;
+}
+
+.dashboard-lesson-progress {
+  border-color: #c7d2fe;
+
+  background: #eef2ff;
+
+  color: #4f46e5;
+}
+
+.dashboard-lesson-main {
+  min-width: 0;
+}
+
+.dashboard-lesson-top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-bottom: 7px;
+}
+
+.dashboard-status {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 8px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.dashboard-status-completed {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.dashboard-status-progress {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.dashboard-status-new {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.dashboard-difficulty {
+  color: #9ca3af;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dashboard-lesson-title {
+  overflow: hidden;
+
+  margin: 0;
+
+  color: #111827;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  line-height: 1.35;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-lesson-subtitle {
+  margin: 4px 0 0;
+
+  color: #9ca3af;
+
+  font-size: 12px;
+}
+
+.dashboard-lesson-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.dashboard-lesson-progress strong {
+  color: #111827;
+
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.dashboard-lesson-progress span {
+  color: #9ca3af;
+
+  font-size: 11px;
+}
+
+.dashboard-mini-progress {
+  width: 100%;
+  height: 5px;
+
+  margin-top: 5px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #eef0f2;
+}
+
+.dashboard-mini-progress-bar {
+  height: 100%;
+
+  min-width: 0;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6366f1,
+      #818cf8
+    );
+
+  transition: width 0.4s ease;
+}
+
+.dashboard-mini-green {
+  background:
+    linear-gradient(
+      90deg,
+      #10b981,
+      #34d399
+    );
+}
+
+.dashboard-arrow {
+  color: #c4c8cf;
+
+  font-size: 21px;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.dashboard-lesson-card:hover .dashboard-arrow {
+  color: #4f46e5;
+
+  transform: translateX(3px);
+}
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.dashboard-empty {
+  padding: 48px 24px;
+
+  border: 1px dashed #d1d5db;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  text-align: center;
+}
+
+.dashboard-empty-icon {
+  margin-bottom: 12px;
+
+  font-size: 34px;
+}
+
+.dashboard-empty h3 {
+  margin: 0;
+
+  color: #374151;
+
+  font-size: 17px;
+}
+
+.dashboard-empty p {
+  max-width: 420px;
+
+  margin: 6px auto 0;
+
+  color: #9ca3af;
+
+  font-size: 14px;
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.dashboard-loading {
+  min-height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  color: #6b7280;
+
+  font-size: 14px;
+}
+
+.dashboard-spinner {
+  width: 34px;
+  height: 34px;
+
+  border: 3px solid #e5e7eb;
+  border-top-color: #4f46e5;
+
+  border-radius: 50%;
+
+  animation: dashboard-spin 0.8s linear infinite;
+}
+
+@keyframes dashboard-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+  .dashboard-ai-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-primary-button {
+    width: 100%;
+  }
+
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-stat-card {
+    min-height: auto;
+  }
+
+  .dashboard-lesson-card {
+    grid-template-columns:
+      46px
+      minmax(0, 1fr)
+      120px
+      20px;
+  }
+}
+
+@media (max-width: 650px) {
+  .dashboard-page {
+    padding: 24px 14px 60px;
+  }
+
+  .dashboard-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dashboard-logout {
+    align-self: flex-start;
+  }
+
+  .dashboard-ai-card {
+    padding: 24px;
+    border-radius: 18px;
+  }
+
+  .dashboard-section {
+    margin-top: 34px;
+  }
+
+  .dashboard-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-lesson-card {
+    grid-template-columns: 42px minmax(0, 1fr) 20px;
+    gap: 12px;
+
+    padding: 15px;
+  }
+
+  .dashboard-lesson-number {
+    width: 42px;
+    height: 42px;
+  }
+
+  .dashboard-lesson-progress {
+    display: none;
+  }
+
+  .dashboard-lesson-title {
+    white-space: normal;
+  }
+
+  .dashboard-arrow {
+    font-size: 18px;
+  }
+
+  .dashboard-completed-card {
+    align-items: flex-start;
+  }
+}

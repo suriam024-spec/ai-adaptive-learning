@@ -1,0 +1,208 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ai_recommendations {
+  id                  String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id             String   @db.Uuid
+  recommendation_type String   @db.VarChar(30)
+  reference_id        String   @db.Uuid
+  reason              String?
+  confidence_score    Decimal? @db.Decimal(5, 4)
+  created_at          DateTime @default(now()) @db.Timestamptz(6)
+
+  users users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id], map: "idx_ai_recommendations_user_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model courses {
+  id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String        @db.VarChar(255)
+  description String?
+  difficulty  String?       @db.VarChar(20)
+  category    String?       @db.VarChar(100)
+  thumbnail   String?
+  status      String        @default("draft") @db.VarChar(20)
+  created_by  String?       @db.Uuid
+  created_at  DateTime      @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime      @default(now()) @db.Timestamptz(6)
+
+  users       users?        @relation(fields: [created_by], references: [id], onUpdate: NoAction)
+  enrollments enrollments[]
+  lessons     lessons[]
+
+  @@index([created_by], map: "idx_courses_created_by")
+}
+
+model enrollments {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id      String    @db.Uuid
+  course_id    String    @db.Uuid
+  status       String    @default("active") @db.VarChar(20)
+  enrolled_at  DateTime  @default(now()) @db.Timestamptz(6)
+  completed_at DateTime? @db.Timestamptz(6)
+
+  courses courses @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users   users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, course_id])
+  @@index([course_id], map: "idx_enrollments_course_id")
+  @@index([user_id], map: "idx_enrollments_user_id")
+}
+
+model learning_analytics {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id         String   @unique @db.Uuid
+  average_score   Decimal? @default(0) @db.Decimal(5, 2)
+  completion_rate Decimal? @default(0) @db.Decimal(5, 2)
+  study_time      Int?     @default(0)
+  weak_topic      String?
+  strong_topic    String?
+  last_updated    DateTime @default(now()) @db.Timestamptz(6)
+
+  users users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model learning_progress {
+  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id          String    @db.Uuid
+  lesson_id        String    @db.Uuid
+  status           String    @default("not_started") @db.VarChar(20)
+  progress_percent Decimal   @default(0) @db.Decimal(5, 2)
+  mastery_score    Decimal   @default(0) @db.Decimal(5, 2)
+  last_accessed    DateTime? @db.Timestamptz(6)
+  completed_at     DateTime? @db.Timestamptz(6)
+
+  lessons          lessons   @relation(fields: [lesson_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users            users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, lesson_id])
+  @@index([lesson_id], map: "idx_progress_lesson_id")
+  @@index([user_id], map: "idx_progress_user_id")
+}
+
+model lessons {
+  id                String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  course_id         String              @db.Uuid
+  title             String              @db.VarChar(255)
+  content           String?
+  video_url         String?
+  lesson_order      Int
+  difficulty        String              @default("medium") @db.VarChar(20)
+  estimated_time    Int?
+  created_at        DateTime            @default(now()) @db.Timestamptz(6)
+
+  learning_progress learning_progress[]
+  courses           courses             @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  quizzes           quizzes[]
+
+  @@unique([course_id, lesson_order])
+  @@index([course_id], map: "idx_lessons_course_id")
+}
+
+model quiz_answers {
+  id              String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  attempt_id      String         @db.Uuid
+  question_id     String         @db.Uuid
+  selected_answer String?        @db.VarChar(10)
+  is_correct      Boolean?
+  time_used       Int?
+
+  quiz_attempts  quiz_attempts  @relation(fields: [attempt_id], references: [id], onDelete: Cascade)
+  quiz_questions quiz_questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
+
+  @@unique([attempt_id, question_id])
+  @@index([attempt_id], map: "idx_answers_attempt_id")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model quiz_attempts {
+  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  quiz_id      String         @db.Uuid
+  user_id      String         @db.Uuid
+  score        Decimal?       @db.Decimal(5, 2)
+  started_at   DateTime       @default(now()) @db.Timestamptz(6)
+  finished_at  DateTime?
+  attempt_no   Int            @default(1)
+
+  quiz_answers quiz_answers[]
+  quizzes      quizzes       @relation(fields: [quiz_id], references: [id], onDelete: Cascade)
+  users        users         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([quiz_id], map: "idx_attempts_quiz_id")
+  @@index([user_id], map: "idx_attempts_user_id")
+}
+
+model quiz_questions {
+  id             String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  quiz_id        String         @db.Uuid
+  question       String
+  question_type  String         @default("multiple_choice") @db.VarChar(30)
+  option_a       String?
+  option_b       String?
+  option_c       String?
+  option_d       String?
+  correct_answer String         @db.VarChar(10)
+  difficulty     String         @default("medium") @db.VarChar(20)
+  question_order Int            @default(1)
+
+  quiz_answers quiz_answers[]
+  quizzes      quizzes        @relation(fields: [quiz_id], references: [id], onDelete: Cascade)
+
+  @@index([quiz_id], map: "idx_questions_quiz_id")
+}
+
+model quizzes {
+  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  lesson_id      String           @db.Uuid
+  title          String           @db.VarChar(255)
+  passing_score  Decimal          @default(60) @db.Decimal(5, 2)
+  time_limit     Int?
+  created_at     DateTime         @default(now()) @db.Timestamptz(6)
+
+  quiz_attempts  quiz_attempts[]
+  quiz_questions quiz_questions[]
+  lessons        lessons         @relation(fields: [lesson_id], references: [id], onDelete: Cascade)
+
+  @@index([lesson_id], map: "idx_quizzes_lesson_id")
+}
+
+model user_profiles {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id         String    @unique @db.Uuid
+  first_name      String?   @db.VarChar(100)
+  last_name       String?   @db.VarChar(100)
+  avatar          String?
+  birth_date      DateTime? @db.Date
+  education_level String?   @db.VarChar(100)
+  created_at      DateTime  @default(now()) @db.Timestamptz(6)
+
+  users users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users {
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email              String               @unique @db.VarChar(255)
+  password_hash      String
+  role               String               @default("student") @db.VarChar(20)
+  status             String               @default("active") @db.VarChar(20)
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime             @default(now()) @db.Timestamptz(6)
+
+  ai_recommendations ai_recommendations[]
+  courses            courses[]
+  enrollments        enrollments[]
+  learning_analytics learning_analytics?
+  learning_progress  learning_progress[]
+  quiz_attempts      quiz_attempts[]
+  user_profiles      user_profiles?
+}
