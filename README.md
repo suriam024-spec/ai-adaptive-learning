@@ -1,3 +1,5 @@
+#GEMINI_API_KEY="*ต้องขอใหม่นะครับ*"
+
 # AI Adaptive Learning Platform
 
 An AI-powered adaptive learning platform that personalizes the learning experience based on each learner's knowledge level, learning progress, quiz performance, and mastery.
